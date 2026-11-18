@@ -1,0 +1,151 @@
+// ==========================================
+// BOT DE VENDAS — COMANDOS PRONTOS
+// ==========================================
+
+// 📋 DADOS DA LOJA
+const LOJA = {
+  nome: "Sua Loja Aqui",
+  pix: "sua.chave@pix.com.br",
+  endereco: "Rua Exemplo, 123 — Bauru/SP",
+  frete: "R$ 8,00 | Grátis acima de R$ 150,00",
+  horario: "Seg-Sáb: 9h às 18h"
+};
+
+// 📦 CATÁLOGO DE PRODUTOS
+const PRODUTOS = `
+🛍️ *NOSSO CATÁLOGO*
+
+1️⃣ Produto A — R$ 47,90
+   Descrição breve do produto...
+
+2️⃣ Produto B — R$ 89,90
+   Descrição breve do produto...
+
+3️⃣ Produto C — R$ 129,90
+   Descrição breve do produto...
+
+📌 Para pedir: digite o nome/número + quantidade
+Ex: "2 1x" = quero 1x Produto B
+`;
+
+// 💰 OFERTAS
+const OFERTAS = `
+🔥 *OFERTAS DA SEMANA*
+
+✅ Compre 2 e ganhe 5% OFF
+✅ Compre 3 e ganhe 10% OFF
+✅ Frete grátis acima de R$ 150,00
+
+💳 Pix: 5% de desconto extra
+`;
+
+// ==========================================
+// FUNÇÃO PRINCIPAL — INTERPRETAR COMANDOS
+// ==========================================
+
+function processarComando(mensagem, numeroCliente) {
+  const cmd = mensagem.trim().toLowerCase();
+
+  // 🏠 MENU PRINCIPAL
+  if (/^\/?(inicio|menu|ola|oi|olá|bom dia|boa tarde|boa noite)$/.test(cmd)) {
+    return `
+👋 Olá! Seja bem-vindo(a) à *${LOJA.nome}*! 😊
+
+Escolha uma opção:
+📦 /catalogo — Ver produtos e preços
+🔥 /ofertas — Promoções ativas
+🚚 /entrega — Prazos e frete
+💳 /pagamento — Formas de pagamento
+📝 /pedido — Como fazer um pedido
+❓ /ajuda — Falar com a gente
+
+Em que posso ajudar?
+    `;
+  }
+
+  // 📦 CATÁLOGO
+  if (/^\/?(catalogo|produtos|precos|lista)$/.test(cmd)) {
+    return PRODUTOS;
+  }
+
+  // 🔥 OFERTAS
+  if (/^\/?(ofertas|promocoes|desconto|cupom)$/.test(cmd)) {
+    return OFERTAS;
+  }
+
+  // 🚚 ENTREGA
+  if (/^\/?(entrega|frete|prazo|onde)$/.test(cmd)) {
+    return `
+🚚 *ENTREGA E FRETE*
+
+• Frete: ${LOJA.frete}
+• Tempo de entrega: 2 a 5 dias úteis
+• Enviamos para todo o Brasil!
+• CEP errado = atraso na entrega
+
+Qualquer dúvida é só chamar! 😊
+    `;
+  }
+
+  // 💳 PAGAMENTO
+  if (/^\/?(pagamento|pagar|pix|cartao|parcelamento)$/.test(cmd)) {
+    return `
+💳 *FORMAS DE PAGAMENTO*
+
+✅ Pix — 5% de desconto → Chave: ${LOJA.pix}
+✅ Cartão de Crédito — até 6x sem juros
+✅ Boleto Bancário — até 3 dias úteis para compensar
+
+📌 Pedido confirmado após confirmação do pagamento!
+    `;
+  }
+
+  // 📝 COMO PEDIR
+  if (/^\/?(pedido|comprar|como pedir|fazer pedido)$/.test(cmd)) {
+    return `
+📝 *COMO PEDIR* — Super simples! 😊
+
+1️⃣ Digite o nome ou número do produto
+2️⃣ Informe a quantidade
+3️⃣ Nos envie seu endereço completo
+4️⃣ Escolha a forma de pagamento
+5️⃣ Pronto! ✅
+
+Exemplo: "Quero 1x Produto A para Rua X, 123 — Bauru/SP"
+    `;
+  }
+
+  // ❓ AJUDA / FALAR COM ATENDENTE
+  if (/^\/?(ajuda|suporte|contato|atendente|falar com alguem)$/.test(cmd)) {
+    return `
+📞 *FALE COM A GENTE*
+
+⏰ Atendimento: ${LOJA.horario}
+📍 ${LOJA.endereco}
+
+💬 Estamos te encaminhando para um atendente...
+Em breve alguém responde você! Obrigado pela paciência 🙏
+    `;
+  }
+
+  // ❓ COMANDO NÃO RECONHECIDO
+  return `
+🤔 Desculpe, não entendi!
+
+Use os comandos abaixo:
+📦 /catalogo | 🔥 /ofertas | 🚚 /entrega
+💳 /pagamento | 📝 /pedido | ❓ /ajuda
+
+Ou é só digitar /menu para ver tudo! 😊
+  `;
+}
+
+// ==========================================
+// EXEMPLO DE USO
+// ==========================================
+
+// Quando receber uma mensagem do cliente:
+// const resposta = processarComando(mensagemRecebida, numeroDoCliente);
+// enviarMensagemWhatsApp(numeroDoCliente, resposta);
+
+console.log("✅ Bot de vendas carregado! Todos os comandos prontos.");
